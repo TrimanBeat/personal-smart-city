@@ -1,0 +1,16 @@
+
+# Ignorar algunas carpetas
+.vscode/
+data/
+# Ignorar carpeta llamada logs
+logs/
+# Ignorar todos los archivos .env
+*.env
+# Ignorar archivos de sistema
+.DS_Store
+Thumbs.db
+# Ignorar archivos de log
+*.log
+#Ignorar pdf y docx
+*.pdf
+*.docx
