@@ -2,7 +2,7 @@
 # Ignorar algunas carpetas
 .vscode/
 data/
-# Ignorar carpeta llamada logs
+venv/
 logs/
 # Ignorar todos los archivos .env
 *.env

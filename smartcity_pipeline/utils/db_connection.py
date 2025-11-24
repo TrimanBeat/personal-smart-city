@@ -1,10 +1,15 @@
+import os
+from dotenv import load_dotenv
 import psycopg2
-from psycopg2.extras import execute_values
+
+load_dotenv()
 
 def get_connection():
-    return psycopg2.connect(
-        host="localhost",
-        database="smartcity",
-        user="postgres",
-        password="1994"
+    conn = psycopg2.connect(
+        host=os.getenv("PG_HOST"),
+        database=os.getenv("PG_DB"),
+        user=os.getenv("PG_USER"),
+        password=os.getenv("PG_PASS"),
+        port=os.getenv("PG_PORT")
     )
+    return conn
