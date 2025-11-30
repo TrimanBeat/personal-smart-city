@@ -14,3 +14,4 @@ Thumbs.db
 #Ignorar pdf y docx
 *.pdf
 *.docx
+credenciales.json

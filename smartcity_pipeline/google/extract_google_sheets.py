@@ -20,7 +20,6 @@ def extract_fact_diario():
     
     sheet = client.open(os.getenv("SHEET_NAME")).sheet1
 
-    # Leer todo como lista de diccionarios
     data = sheet.get_all_records()
     df = pd.DataFrame(data)
 
