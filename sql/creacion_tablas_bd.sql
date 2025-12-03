@@ -1,61 +1,45 @@
+-- =========================================================
+-- 1. BORRAR TABLAS EXISTENTES (en orden por claves externas)
+-- =========================================================
+DROP TABLE IF EXISTS fact_daylio_actividad;
+DROP TABLE IF EXISTS fact_daylio;
+DROP TABLE IF EXISTS dim_mood;
+DROP TABLE IF EXISTS dim_actividad;
 
-CREATE TABLE dim_ubicacion (
-    id SERIAL PRIMARY KEY,
-    nombre TEXT NOT NULL,
-    lat FLOAT,
-    lon FLOAT
-);
+-- =========================================================
+-- 2. DIMENSIONES
+-- =========================================================
 
-
-
-
-CREATE TABLE fact_diario (
-    id SERIAL PRIMARY KEY,
-    fecha DATE UNIQUE NOT NULL,
-    horas_sueno FLOAT,
-    pomodoros_estudio INT,
-    actividad_fisica FLOAT,
-    gastos FLOAT,
-    ubicacion_id INT REFERENCES dim_ubicacion(id)
-);
-
-CREATE INDEX idx_fact_diario_fecha ON fact_diario(fecha);
-
-
-CREATE TABLE fact_dailyo (
-    id SERIAL PRIMARY KEY,
-    fecha DATE UNIQUE NOT NULL,
-    mood_score INT,
-    notas TEXT
-);
-
-
-
+-- Dimensión de actividades
 CREATE TABLE dim_actividad (
     id SERIAL PRIMARY KEY,
-    nombre TEXT NOT NULL UNIQUE
+    nombre TEXT UNIQUE NOT NULL
 );
 
-CREATE TABLE fact_dailyo_actividad (
-    dailyo_id INT REFERENCES fact_dailyo(id) ON DELETE CASCADE,
-    actividad_id INT REFERENCES dim_actividad(id),
-    PRIMARY KEY (dailyo_id, actividad_id)
-);
-
-CREATE INDEX idx_dailyoact_dailyo ON fact_dailyo_actividad(dailyo_id);
-CREATE INDEX idx_dailyoact_act ON fact_dailyo_actividad(actividad_id);
-
-CREATE TABLE fact_salud_apple (
+-- Dimensión de estados de ánimo
+CREATE TABLE dim_mood (
     id SERIAL PRIMARY KEY,
-    fecha DATE UNIQUE NOT NULL,
-    pasos INT,
-    distancia FLOAT,            -- km
-    calorias_activas FLOAT,
-    frecuencia_media FLOAT,
-    tiempo_sueno_min INT
+    mood_name TEXT UNIQUE NOT NULL
 );
 
-CREATE INDEX idx_salud_fecha ON fact_salud_apple(fecha);
+-- =========================================================
+-- 3. TABLA DE HECHOS PRINCIPAL DE DAYLIO
+-- =========================================================
+CREATE TABLE fact_daylio (
+    id SERIAL PRIMARY KEY,
+    fecha DATE NOT NULL,
+    mood_id INTEGER REFERENCES dim_mood(id),
+    note TEXT
+);
+
+-- =========================================================
+-- 4. TABLA PUENTE (N:M)
+-- =========================================================
+CREATE TABLE fact_daylio_actividad (
+    id_fact_daylio INTEGER REFERENCES fact_daylio(id) ON DELETE CASCADE,
+    id_actividad INTEGER REFERENCES dim_actividad(id) ON DELETE CASCADE,
+    PRIMARY KEY (id_fact_daylio, id_actividad)
+);
 
 
 
