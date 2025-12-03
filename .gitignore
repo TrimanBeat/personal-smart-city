@@ -4,14 +4,46 @@
 data/
 venv/
 logs/
-# Ignorar todos los archivos .env
-*.env
-# Ignorar archivos de sistema
-.DS_Store
-Thumbs.db
-# Ignorar archivos de log
-*.log
+
+# Ignorar entornos virtuales
+.venv/
+env/
+venv/
+
 #Ignorar pdf y docx
 *.pdf
 *.docx
 credenciales.json
+
+# Ignorar archivos compilados de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignorar entornos virtuales
+.env
+.venv/
+env/
+venv/
+
+# Ignorar configuraciones de IDEs
+.vscode/
+.idea/
+
+# Ignorar archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Ignorar archivos de logs
+*.log
+
+# Ignorar datos temporales
+*.tmp
+*.swp
+
+# Ignorar notebooks checkpoints
+.ipynb_checkpoints/
+
+# Ignorar archivos de pruebas locales
+tests/__pycache__/
