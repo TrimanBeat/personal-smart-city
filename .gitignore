@@ -10,10 +10,11 @@ logs/
 env/
 venv/
 
-#Ignorar pdf y docx
+#Ignorar pdf, docx, png
 *.pdf
 *.docx
 credenciales.json
+*.png
 
 # Ignorar archivos compilados de Python
 __pycache__/
